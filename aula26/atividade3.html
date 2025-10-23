@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Atualização de Produto com PUT e Fetch</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        button { margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #mensagem { margin-top: 20px; padding: 10px; border-radius: 4px; }
+        .sucesso { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .erro { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Atualizar Produto por ID (Método PUT)</h2>
+
+    <form id="formAtualizarProduto">
+        <label for="idProduto">ID do Produto:</label>
+        <input type="number" id="idProduto" value="456" required>
+
+        <label for="novoPreco">Novo Preço:</label>
+        <input type="number" id="novoPreco" step="0.01" value="129.99" required>
+
+        <label for="novaImagemUrl">Nova URL da Imagem:</label>
+        <input type="url" id="novaImagemUrl" value="https://exemplo.com/nova-imagem-456.jpg" required>
+
+        <button type="submit">Atualizar Produto</button>
+    </form>
+
+    <div id="mensagem">Aguardando atualização...</div>
+</div>
+<script>
+    document.getElementById('formAtualizarProduto').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const idProduto = document.getElementById('idProduto').value;
+        const novoPreco = parseFloat(document.getElementById('novoPreco').value);
+        const novaImagemUrl = document.getElementById('novaImagemUrl').value;
+
+        const dadosAtualizados = {
+            preco: novoPreco,
+            imagemUrl: novaImagemUrl
+        };
+
+        fetch(`https://fakestoreapi.com/products/${idProduto}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosAtualizados)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na atualização do produto');
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('mensagem').innerHTML = 'Produto atualizado com sucesso!';
+            document.getElementById('mensagem').className = 'sucesso';
+        })
+        .catch(error => {
+            document.getElementById('mensagem').innerHTML = `Falha ao atualizar o produto: ${error.message}`;
+            document.getElementById('mensagem').className = 'erro';
+        });
+    });
+</script>
+    
+   
+
+</body>
+</html>

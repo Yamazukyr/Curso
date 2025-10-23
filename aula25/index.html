@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>aula 25</h1>
+    <h2 id="rua"></h2>
+
+    <script>
+//cosumo de api com fetch
+
+//codigo sicrono
+console.log('codigo sicrono 1º console.log');
+
+//codigo assincrono
+fetch('https://viacep.com.br/ws/01001000/json/')
+.then(resposta => resposta.json())
+.then(data => {
+    console.log(data)
+    //inserindo o conteudo da rua no hmtl a partir do objeto devolvido da api
+    document.getElementById('rua').innerText = data.logradouro
+})
+//codigo sincrono
+console.log('codigo sicrono 2º console.log');
+
+    </script>
+</body>
+</html>

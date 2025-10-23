@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <h1 id="nomeProduto">produto 1</h1>
+        <p class="descricao">Lorem ipsum dolor,it amet consectetur adipisicing elit. Eaque, minima.</p>
+        <h5>R$ 100.00</h5>
+        <button>comprar</button>
+    </div>
+
+
+    <script >
+
+        let produto = { 
+        nome: "Smartphone Galaxy", 
+        qtd: 10, 
+        preco: 2500, 
+        cor: "preto", 
+        marca: "Samsung", 
+        departamento: "Eletrônicos" 
+    }
+        let nome = document.getElementById("nomeProduto");
+            nome.innerHTML = produto.nome
+
+        let descricao = document.getElementsByClassName("descricao")[0];
+            descricao.innerHTML =`Marca ${produto.marca} | Cor: ${produto.cor} | Departamento: ${produto.departamento}`;
+
+        let preco = document.getElementsByTagName("h5")[0];
+            preco.innerHTML = `R$ ${produto.preco.toFixed(2)}`;
+
+    </script>
+</body>
+</html>

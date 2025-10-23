@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, button { padding: 10px; margin-bottom: 10px; display: block; }
+        .resultado { margin-top: 20px; border: 1px solid #ccc; padding: 15px; }
+    </style>
+</head>
+<body>
+   <h1>Consultar Endereço por CEP</h1>
+
+    <label for="cepInput">Digite o CEP:</label>
+    <input type="text" id="cepInput" placeholder="Ex: 01001000" maxlength="8">
+    
+    <button id="consultarBtn">Consultar Endereço</button>
+
+    <div class="resultado">
+        <p>Rua: <span id="rua"></span></p>
+        <p>Bairro: <span id="bairro"></span></p>
+        <p>Cidade/UF: <span id="cidade"></span></p>
+    </div>
+
+    <script>
+        
+async function consultarCEP() {
+  
+    const cep = document.getElementById('cepInput').value;
+
+    const cepLimpo = cep.replace(/\D/g, ''); 
+
+    if (cepLimpo.length !== 8) {
+        alert('Por favor, digite um CEP válido com 8 dígitos.');
+        return;
+    }
+
+    const url = `https://viacep.com.br/ws/${cepLimpo}/json/`;
+
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        
+        if (data.erro) {
+            document.getElementById('rua').textContent = 'CEP não encontrado.';
+            document.getElementById('bairro').textContent = '-';
+            document.getElementById('cidade').textContent = '-';
+            return;
+        }
+
+        
+        document.getElementById('rua').textContent = data.logradouro;
+        document.getElementById('bairro').textContent = data.bairro;
+        document.getElementById('cidade').textContent = `${data.localidade}/${data.uf}`;
+
+    } catch (error) {
+       
+        console.error('Erro na consulta de CEP:', error);
+        alert('Ocorreu um erro ao tentar consultar o CEP.');
+    }
+}
+
+const botao = document.getElementById('consultarBtn');
+
+botao.addEventListener('click', consultarCEP);
+
+    </script> 
+</body>
+</html>

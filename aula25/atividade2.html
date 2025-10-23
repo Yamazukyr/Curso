@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Gatinho fofo</h1>
+    <img src="" alt="Gatinho">
+
+    <script>
+        //todas as vezes que a pagina for carregada, o gatinho vai aparecer
+        //utilize https://api.thecatapi.com/v1/images/search como url para o fetch
+        //use os metodos para promisse (then e catch) para manipular a promisse retornada pelo fetch
+        fetch('https://api.thecatapi.com/v1/images/search')
+        .then(resposta => resposta.json())
+        .then(data => {
+            console.log(data)
+            document.querySelector('img').src = data[0].url
+        })
+        .catch(erro => {
+            console.error('Erro ao carregar a imagem do gatinho:', erro);
+        });
+
+    </script>
+</body>
+</html>

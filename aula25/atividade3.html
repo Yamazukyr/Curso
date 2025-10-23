@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+    <script>
+        async function buscaproduto(id) {
+            try{
+                const reportaApi = await fetch(`https://fakestoreapi.com/products/${id}`)
+                const produto = await reportaApi.json()
+                console.log(produto)
+
+                const imagem = document.createElement('img')
+                imagem.src = produto.image
+
+                const none = document.createElement('h2')
+                none.innerHTML = produto.title
+    
+                const descricao = document.createElement('p')
+                descricao.innerHTML = produto.description
+
+                const preco = document.createElement('h5')
+                preco.innerHTML = `R$ ${produto.price}`
+
+                document.body.appendChild(imagem, none, descricao, preco)
+            }
+            catch(e){
+                console.error('Erro ao buscar o produto:', e);
+            }
+        }
+        buscaproduto(1)
+
+    </script>
+</body>
+</html>

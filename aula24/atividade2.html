@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#">
+        <label for="nome">Nome</label>
+        <br>
+        <input type="text" id='nome'>
+        <br>
+
+        <label for="quantidade">Quantidade</label>
+        <br>
+        <input type="number" id='quantidade'>
+        <br>
+
+        <label for="preco">Preco</label>
+        <br>
+        <input type="number" id="preco">
+        <br>
+
+        <label for="departamento">Departamento</label>
+        <br>
+        <select name="departamento" id="departamento">
+            <option value="camaEmesa">camaEmesa</option>
+            <option value="movies">movies</option>
+            <option value="eletronicos">eletronicos</option>
+            <option value="moda">moda</option>
+        </select>
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+<script>
+        let produtos = [
+            {
+                nome: 'cama',
+                quantidade: 10,
+                preco: 100,
+                departamento: 'camaEmesa'
+            },
+            {
+                nome: 'filme',
+                quantidade: 10,
+                preco: 100,
+                departamento: 'movies'
+            },
+            {
+                nome: 'teclado',
+                quantidade: 10,
+                preco: 100,
+                departamento: 'eletronicos'
+            },
+            {
+                nome: 'sapato',
+                quantidade: 10,
+                preco: 100,
+                departamento: 'moda'
+            }
+        ]
+        let form = document.querySelector('form')
+        form.addEventListener('submit', function(event){
+            event.preventDefault()
+            let nome = document.querySelector('#nome').value
+            let quantidade = document.querySelector('#quantidade').value
+            let preco = document.querySelector('#preco').value
+            let departamento = document.querySelector('#departamento').value
+
+            if(!nome){
+                alert("digite o nome")
+                return
+            }
+            if(!quantidade){
+                alert("digite a quantidade")
+                return
+            }
+            if(!preco){
+                alert("digite o preco")
+                return
+            }
+            
+            let produto = {
+                nome: nome,
+                quantidade: quantidade,
+                preco: preco,
+                departamento: departamento
+            }
+            produtos.push(produto)
+            console.log(produtos)
+        })
+    </script>
+
+</body>
+</html>
